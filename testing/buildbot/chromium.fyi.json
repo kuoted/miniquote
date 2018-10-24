@@ -1617,6 +1617,18 @@
       },
       {
         "args": [
+          "--enable-features=NetworkService",
+          "--test-launcher-filter-file=../../testing/buildbot/filters/mojo.fyi.chromeos.network_interactive_ui_tests.filter"
+        ],
+        "name": "network_service_interactive_ui_tests",
+        "swarming": {
+          "can_use_on_swarming_builders": true,
+          "shards": 3
+        },
+        "test": "interactive_ui_tests"
+      },
+      {
+        "args": [
           "--enable-features=VizDisplayCompositor"
         ],
         "name": "viz_interactive_ui_tests",
@@ -3219,6 +3231,18 @@
         "test": "crypto_unittests"
       },
       {
+        "swarming": {
+          "can_use_on_swarming_builders": true
+        },
+        "test": "fidlgen_js_unittests"
+      },
+      {
+        "swarming": {
+          "can_use_on_swarming_builders": true
+        },
+        "test": "http_service_tests"
+      },
+      {
         "args": [
           "--test-launcher-filter-file=../../testing/buildbot/filters/fuchsia.ipc_tests.filter"
         ],
@@ -3345,6 +3369,28 @@
           ]
         },
         "test": "crypto_unittests"
+      },
+      {
+        "swarming": {
+          "can_use_on_swarming_builders": true,
+          "dimension_sets": [
+            {
+              "kvm": "1"
+            }
+          ]
+        },
+        "test": "fidlgen_js_unittests"
+      },
+      {
+        "swarming": {
+          "can_use_on_swarming_builders": true,
+          "dimension_sets": [
+            {
+              "kvm": "1"
+            }
+          ]
+        },
+        "test": "http_service_tests"
       },
       {
         "args": [
@@ -3518,6 +3564,28 @@
           ]
         },
         "test": "crypto_unittests"
+      },
+      {
+        "swarming": {
+          "can_use_on_swarming_builders": true,
+          "dimension_sets": [
+            {
+              "kvm": "1"
+            }
+          ]
+        },
+        "test": "fidlgen_js_unittests"
+      },
+      {
+        "swarming": {
+          "can_use_on_swarming_builders": true,
+          "dimension_sets": [
+            {
+              "kvm": "1"
+            }
+          ]
+        },
+        "test": "http_service_tests"
       },
       {
         "args": [
@@ -6368,6 +6436,10 @@
         }
       },
       {
+        "args": [
+          "--xvfb",
+          "--jobs=1"
+        ],
         "isolate_name": "telemetry_perf_unittests",
         "name": "telemetry_perf_unittests",
         "swarming": {

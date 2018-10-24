@@ -366,9 +366,7 @@
           "--browser=cros-chrome",
           "--remote=127.0.0.1",
           "--remote-ssh-port=9222",
-          "--xvfb",
-          "--skip=core.perf_benchmark_unittest.PerfBenchmarkTest.testVariationArgs",
-          "--skip=measurements.clock_domain_test.ClockDomainTest.testTelemetryUsesChromeClockDomain"
+          "--xvfb"
         ],
         "isolate_name": "telemetry_perf_unittests",
         "name": "telemetry_perf_unittests",
@@ -751,7 +749,8 @@
       },
       {
         "args": [
-          "--enable-features=SingleProcessMash"
+          "--enable-features=SingleProcessMash",
+          "--test-launcher-filter-file=../../testing/buildbot/filters/chromeos.single_process_mash.exo_unittests.filter"
         ],
         "name": "single_process_mash_exo_unittests",
         "swarming": {
@@ -1468,7 +1467,8 @@
       },
       {
         "args": [
-          "--enable-features=SingleProcessMash"
+          "--enable-features=SingleProcessMash",
+          "--test-launcher-filter-file=../../testing/buildbot/filters/chromeos.single_process_mash.exo_unittests.filter"
         ],
         "name": "single_process_mash_exo_unittests",
         "swarming": {

@@ -75,7 +75,6 @@
       'mac-views-rel', # https://crbug.com/828031
       # chromium.mac
       'Mac10.10 Tests', # https://crbug.com/828031
-      'Mac10.13 Tests', # https://crbug.com/828031
       # chromium.memory
       'Linux TSan Tests',  # https://crbug.com/368525
       'Mac ASan 64 Tests (1)', # https://crbug.com/828031
@@ -124,6 +123,23 @@
           '--test-launcher-filter-file=../../testing/buildbot/filters/mac_window_server_killers.browser_tests.filter',
           '--gtest_shuffle',
         ],
+        'swarming': {
+          'dimension_sets': [
+            {
+              'pool': 'Chrome-quarantine',
+              'gpu': 'none',
+            },
+          ],
+        },
+      },
+      'Mac10.13 Tests': {
+        # A subset of tests seem to cause WindowServer deaths on VMs.
+        # crbug.com/828031 et al.
+        'args': [
+          '--test-launcher-filter-file=../../testing/buildbot/filters/mac_window_server_killers.browser_tests.filter',
+          '--gtest_shuffle',
+        ],
+        'experiment_percentage': 25,
         'swarming': {
           'dimension_sets': [
             {
@@ -478,6 +494,13 @@
       'linux-win_cross-rel', # https://crbug.com/762167
     ],
   },
+  'extensions_browsertests': {
+    'modifications': {
+      'Win10 Tests x64 (dbg)': {
+        'experiment_percentage': 100, # https://crbug.com/876615
+      },
+    },
+  },
   'gin_unittests': {
     'remove_from': [
       # chromium.clang
@@ -636,6 +659,12 @@
       'ToTLinuxASan',  # https://crbug.com/843732
       # chromium.memory
       'Linux ASan LSan Tests (1)',  # https://crbug.com/843732
+    ],
+  },
+  'http_service_tests': {
+    'remove_from': [
+      # chromium.linux
+      'Fuchsia x64',  # https://crbug.com/896884
     ],
   },
   'info_collection_tests': {
@@ -1126,6 +1155,13 @@
           'shards': 20,
         },
         'experiment_percentage': 100,
+      },
+      # luci.chromium.ci
+      'linux-tcmalloc-rel': {
+        'args': [
+          '--xvfb',
+          '--jobs=1',
+        ],
       },
     },
     'remove_from': [

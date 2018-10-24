@@ -463,9 +463,7 @@
           # By default, CrOS VMs' ssh servers listen on local port 9222.
           '--remote=127.0.0.1',
           '--remote-ssh-port=9222',
-          '--xvfb',
-          '--skip=core.perf_benchmark_unittest.PerfBenchmarkTest.testVariationArgs',
-          '--skip=measurements.clock_domain_test.ClockDomainTest.testTelemetryUsesChromeClockDomain',
+          '--xvfb'
         ],
         'swarming': {
           'hard_timeout': 1200,
@@ -979,6 +977,8 @@
       'cronet_tests': {},
       'cronet_unittests': {},
       'crypto_unittests': {},
+      'fidlgen_js_unittests': {},
+      'http_service_tests': {},
       'ipc_tests': {
         'args': [
           '--test-launcher-filter-file=../../testing/buildbot/filters/fuchsia.ipc_tests.filter',
@@ -1754,6 +1754,7 @@
         'test': 'exo_unittests',
         'args': [
           '--enable-features=SingleProcessMash',
+          '--test-launcher-filter-file=../../testing/buildbot/filters/chromeos.single_process_mash.exo_unittests.filter',
         ],
       },
       'single_process_mash_interactive_ui_tests': {
@@ -1979,6 +1980,16 @@
           '--enable-features=NetworkService',
         ],
         'test': 'extensions_browsertests',
+      },
+      'network_service_interactive_ui_tests': {
+        'args': [
+          '--enable-features=NetworkService',
+          '--test-launcher-filter-file=../../testing/buildbot/filters/mojo.fyi.chromeos.network_interactive_ui_tests.filter',
+        ],
+        'swarming': {
+          'shards': 3,
+        },
+        'test': 'interactive_ui_tests',
       },
     },
 

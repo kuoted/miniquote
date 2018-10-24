@@ -533,14 +533,15 @@
             ],
             "experiments": [
                 {
-                    "name": "AudioProcess_LaunchOnStartup_v6",
+                    "name": "AudioProcess_LaunchOnStartup_Sandboxed_v7",
                     "params": {
                         "teardown_timeout_s": "0"
                     },
                     "enable_features": [
                         "AudioServiceAudioStreams",
                         "AudioServiceLaunchOnStartup",
-                        "AudioServiceOutOfProcess"
+                        "AudioServiceOutOfProcess",
+                        "AudioServiceSandbox"
                     ]
                 }
             ]
@@ -1327,6 +1328,25 @@
             ]
         }
     ],
+    "DataReductionProxyBrotliHoldback": [
+        {
+            "platforms": [
+                "android",
+                "windows",
+                "mac",
+                "chromeos",
+                "linux"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled",
+                    "enable_features": [
+                        "DataReductionProxyBrotliHoldback"
+                    ]
+                }
+            ]
+        }
+    ],
     "DataReductionProxyFREPromo": [
         {
             "platforms": [
@@ -1373,31 +1393,6 @@
                     },
                     "enable_features": [
                         "DataReductionProxyMainMenu"
-                    ]
-                }
-            ]
-        }
-    ],
-    "DataReductionProxyRobustConnection": [
-        {
-            "platforms": [
-                "android",
-                "windows",
-                "mac",
-                "chromeos",
-                "linux"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "params": {
-                        "bypass_missing_via_disabled": "true",
-                        "warmup_fetch_callback_enabled": "true",
-                        "warmup_url_fetch_init_http_rtt_multiplier": "12",
-                        "warmup_url_fetch_min_timeout_seconds": "30"
-                    },
-                    "enable_features": [
-                        "DataReductionProxyRobustConnection"
                     ]
                 }
             ]
@@ -2175,8 +2170,7 @@
     "ImprovedRecoveryComponent": [
         {
             "platforms": [
-                "windows",
-                "mac"
+                "windows"
             ],
             "experiments": [
                 {
@@ -2437,6 +2431,28 @@
             ]
         }
     ],
+    "LookalikeUrlNavigationSuggestions": [
+        {
+            "platforms": [
+                "linux",
+                "mac",
+                "windows",
+                "android",
+                "chromeos"
+            ],
+            "experiments": [
+                {
+                    "name": "Enabled_V2",
+                    "params": {
+                        "metrics_only": "true"
+                    },
+                    "enable_features": [
+                        "LookalikeUrlNavigationSuggestions"
+                    ]
+                }
+            ]
+        }
+    ],
     "LowPriorityIframes2": [
         {
             "platforms": [
@@ -2544,25 +2560,6 @@
                     "name": "Enabled",
                     "enable_features": [
                         "MediaFoundationVideoCapture"
-                    ]
-                }
-            ]
-        }
-    ],
-    "MergeBlockingNonBlockingPools": [
-        {
-            "platforms": [
-                "android",
-                "chromeos",
-                "linux",
-                "mac",
-                "windows"
-            ],
-            "experiments": [
-                {
-                    "name": "Enabled",
-                    "enable_features": [
-                        "MergeBlockingNonBlockingPools"
                     ]
                 }
             ]

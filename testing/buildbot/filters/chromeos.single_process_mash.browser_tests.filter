@@ -51,9 +51,6 @@
 -PDFExtensionTest.*
 -PDFExtensionHitTestTest.*
 
-# ash::Shell access for LogoutConfirmationController
--DeviceLocalAccountTest.*
-
 # Fails: immersive_controller->IsRevealed() returns false.
 # http://crbug.com/791148
 -vZoomBubbleBrowserTest.*
@@ -226,3 +223,6 @@
 # ContentScriptApiTests are flaky: crbug.com/895110 and crbug.com/895070
 -ContentScriptApiTest.ContentScriptExtensionAPIs
 -ContentScriptApiTest.ContentScriptBlockingScriptsDontRunTwice
+
+# Test hangs in single process mash crbug.com/897012
+-SelectFileDialogExtensionBrowserTest.SelectFileVirtualKeyboard_TabletMode
