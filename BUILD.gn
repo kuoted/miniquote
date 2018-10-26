@@ -127,3 +127,12 @@ group("gn_all") {
     ]
   }
 }
+
+group("gn_visibility") {
+  deps = [
+    #"//build/config/sanitizers:options_sources",
+    # "//third_party/pdfium:pdfium_embeddertests",  # TODO(GYP): visibility?
+    # "//third_party/pdfium:pdfium_unittests",  # TODO(GYP): visibility?
+  ]
+
+}
