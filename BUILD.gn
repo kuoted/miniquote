@@ -45,7 +45,8 @@ group("gn_all") {
     "//base:base_perftests",
     "//base:base_unittests",
     "//net:net_unittests",
-#    "//tools/binary_size:binary_size_trybot_py",
+
+    #    "//tools/binary_size:binary_size_trybot_py",
     "//url:url_unittests",
   ]
 
@@ -79,9 +80,7 @@ group("gn_all") {
   }
 
   if (is_ios || is_win || (is_linux && !is_chromeos)) {
-    deps += [
-      "//base:base_i18n_perftests",
-    ]
+    deps += [ "//base:base_i18n_perftests" ]
   }
 
   # TODO(GYP): Figure out which of these should (and can) build
@@ -104,9 +103,6 @@ group("gn_all") {
       ]
     }
 
-    if (media_use_ffmpeg && !is_android) {
-#      deps += [ "//media:ffmpeg_regression_tests" ]
-    }
   }
 
   if (is_win) {
@@ -118,17 +114,8 @@ group("gn_all") {
     ]
   }
 
-  if (use_openh264) {
-    deps += [
-#      "//third_party/openh264:common",
-#      "//third_party/openh264:encoder",
-#      "//third_party/openh264:processing",
-    ]
-  }
-
-    if (target_cpu == "x86" || target_cpu == "x64") {
-#      deps += [ "//third_party/libjpeg_turbo:simd_asm" ]
-    }
+  if (target_cpu == "x86" || target_cpu == "x64") {
+    #      deps += [ "//third_party/libjpeg_turbo:simd_asm" ]
   }
 
   if ((is_linux && !is_chromeos && !is_chromecast) ||
