@@ -12,7 +12,7 @@ import("//build/config/jumbo.gni")
 import("//build/config/chrome_build.gni")
 import("//build/config/nacl/config.gni")
 #import("//components/nacl/features.gni")
-#import("//third_party/jinja2/jinja2.gni") 
+import("//third_party/jinja2/jinja2.gni")
 import("//tools/ipc_fuzzer/ipc_fuzzer.gni")
 
 declare_args() {
@@ -24,7 +24,7 @@ declare_args() {
   # Note that (perhaps obviously) a huge amount of Chromium code will not build
   # with typemapping disabled, so it is never valid to set this to |false| in
   # any Chromium build configuration.
-  enable_mojom_typemapping = true
+  enable_mojom_typemapping = false
 
   # Controls message ID scrambling behavior. If |true|, message IDs are
   # scrambled (i.e. randomized based on the contents of //chrome/VERSION) on
@@ -113,13 +113,12 @@ if (enable_scrambled_message_ids) {
 if (enable_mojom_typemapping) {
   if (!is_ios) {
     _bindings_configuration_files = [
-  #    "//mojo/public/tools/bindings/chromium_bindings_configuration.gni",
-  #    "//mojo/public/tools/bindings/blink_bindings_configuration.gni",
+      "//mojo/public/tools/bindings/chromium_bindings_configuration.gni",
+      "//mojo/public/tools/bindings/blink_bindings_configuration.gni",
     ]
   } else {
-    _bindings_configuration_files = [
-  #    "//mojo/public/tools/bindings/chromium_bindings_configuration.gni" 
-    ]
+    _bindings_configuration_files =
+        [ "//mojo/public/tools/bindings/chromium_bindings_configuration.gni" ]
   }
   _bindings_configurations = []
   foreach(config_file, _bindings_configuration_files) {
@@ -395,7 +394,7 @@ template("mojom") {
 
     action(parser_target_name) {
       script = mojom_generator_script
-      inputs = mojom_generator_sources
+      inputs = mojom_generator_sources + jinja2_sources
       sources = invoker.sources
       outputs = []
       filelist = []
@@ -449,7 +448,7 @@ template("mojom") {
 
       action(verify_deps_target_name) {
         script = mojom_generator_script
-        inputs = mojom_generator_sources 
+        inputs = mojom_generator_sources + jinja2_sources
         sources = invoker.sources
         deps = [
           ":$parsed_target_name",
@@ -548,7 +547,7 @@ template("mojom") {
 
     action(generator_cpp_message_ids_target_name) {
       script = mojom_generator_script
-      inputs = mojom_generator_sources 
+      inputs = mojom_generator_sources + jinja2_sources
       sources = invoker.sources
       deps = [
         ":$parsed_target_name",
@@ -588,7 +587,7 @@ template("mojom") {
     action(generator_shared_target_name) {
       visibility = [ ":*" ]
       script = mojom_generator_script
-      inputs = mojom_generator_sources 
+      inputs = mojom_generator_sources + jinja2_sources
       sources = invoker.sources
       deps = [
                ":$parsed_target_name",
@@ -688,10 +687,9 @@ template("mojom") {
   if (!defined(invoker.disable_variants) || !invoker.disable_variants) {
     enabled_configurations = _bindings_configurations
   } else {
-  #  first_config = _bindings_configurations[0]
-  #  assert(!defined(first_config.variant))
-  #  enabled_configurations = [ first_config ]
-    enabled_configurations = [ ]
+    first_config = _bindings_configurations[0]
+    assert(!defined(first_config.variant))
+    enabled_configurations = [ first_config ]
   }
   foreach(bindings_configuration, enabled_configurations) {
     cpp_only = false
@@ -777,7 +775,7 @@ template("mojom") {
       action(generator_target_name) {
         visibility = [ ":*" ]
         script = mojom_generator_script
-        inputs = mojom_generator_sources 
+        inputs = mojom_generator_sources + jinja2_sources
         sources = invoker.sources
         deps = [
                  ":$parsed_target_name",
@@ -855,8 +853,8 @@ template("mojom") {
     }
 
     action(type_mappings_target_name) {
-      inputs = _bindings_configuration_files + mojom_generator_sources
-
+      inputs = _bindings_configuration_files + mojom_generator_sources +
+               jinja2_sources
       outputs = [
         type_mappings_path,
       ]
@@ -1063,7 +1061,7 @@ template("mojom") {
             [ "{{source_gen_dir}}/{{source_name_part}}.mojom.srcjar" ]
         action(java_generator_target_name) {
           script = mojom_generator_script
-          inputs = mojom_generator_sources 
+          inputs = mojom_generator_sources + jinja2_sources
           sources = enabled_sources
           deps = [
                    ":$parsed_target_name",
@@ -1150,13 +1148,13 @@ template("mojom") {
   if (enable_ipc_fuzzer || !defined(invoker.cpp_only) || !invoker.cpp_only) {
     if (defined(invoker.sources)) {
       generator_js_target_name = "${target_name}_js__generator"
-      #generator_js_outputs = [
-      #  "{{source_gen_dir}}/{{source_name_part}}.mojom.js",
-      #  "{{source_gen_dir}}/{{source_name_part}}.mojom.externs.js",
-      #]
+      generator_js_outputs = [
+        "{{source_gen_dir}}/{{source_name_part}}.mojom.js",
+        "{{source_gen_dir}}/{{source_name_part}}.mojom.externs.js",
+      ]
       action(generator_js_target_name) {
         script = mojom_generator_script
-        inputs = mojom_generator_sources 
+        inputs = mojom_generator_sources + jinja2_sources
         sources = []
         if (defined(invoker.sources)) {
           sources += invoker.sources
@@ -1209,19 +1207,19 @@ template("mojom") {
       }
     }
 
-    #group(js_data_deps_target_name) {
-    #  deps = []
-    #  if (defined(invoker.sources)) {
-    #    data = process_file_template(invoker.sources, generator_js_outputs)
-    #    deps += [ ":$generator_js_target_name" ]
-    #  }
+    group(js_data_deps_target_name) {
+      deps = []
+      if (defined(invoker.sources)) {
+        data = process_file_template(invoker.sources, generator_js_outputs)
+        deps += [ ":$generator_js_target_name" ]
+      }
 
-    #  data_deps = []
-    #  foreach(d, all_deps) {
-    #    full_name = get_label_info(d, "label_no_toolchain")
-    #    data_deps += [ "${full_name}_js_data_deps" ]
-    #  }
-    #}
+      data_deps = []
+      foreach(d, all_deps) {
+        full_name = get_label_info(d, "label_no_toolchain")
+        data_deps += [ "${full_name}_js_data_deps" ]
+      }
+    }
   }
 }
 
