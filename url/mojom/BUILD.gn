@@ -20,7 +20,7 @@ mojom("url_mojom_origin") {
     "//mojo/public/mojom/base",
   ]
 
-  check_includes_blink = false
+  #check_includes_blink = false
 }
 
 mojom("test_url_mojom_gurl") {

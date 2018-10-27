@@ -1655,7 +1655,7 @@ jumbo_component("base") {
     ]
     all_dependent_configs += [
       ":base_win_linker_flags",
-      "//tools/win/DebugVisualizers:chrome",
+#      "//tools/win/DebugVisualizers:chrome",
     ]
   }
 

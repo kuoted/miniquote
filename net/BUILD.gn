@@ -17,7 +17,7 @@ import("//tools/grit/grit_rule.gni")
 import("//url/features.gni")
 
 if (!is_proto_quic) {
-  import("//v8/gni/v8.gni")
+  #import("//v8/gni/v8.gni")
 }
 
 if (is_android) {
@@ -2286,7 +2286,7 @@ if (!is_proto_quic) {
     deps = [
       ":net",
       "//base",
-      "//sql:sql",
+#      "//sql:sql",
     ]
   }
 }
@@ -2775,7 +2775,7 @@ if (use_v8_in_net) {
 
     configs += [
       "//build/config/compiler:wexit_time_destructors",
-      "//v8:external_startup_data",
+#      "//v8:external_startup_data",
     ]
 
     public_deps = [
@@ -2784,9 +2784,9 @@ if (use_v8_in_net) {
     ]
     deps = [
       "//base",
-      "//gin",
+#      "//gin",
       "//url",
-      "//v8",
+#      "//v8",
     ]
   }
 }
@@ -3194,7 +3194,7 @@ source_set("quic_test_tools") {
     "//testing/gtest",
     "//third_party/boringssl",
     "//third_party/protobuf:protobuf_lite",
-    "//third_party/quic_trace:quic_trace_proto",
+#    "//third_party/quic_trace:quic_trace_proto",
   ]
 
   if (is_linux) {
@@ -5287,7 +5287,7 @@ test("net_unittests") {
     deps += [
       ":extras",
       "//base:i18n",
-      "//sql",
+#      "//sql",
     ]
   } else {
     sources -= [
@@ -5301,26 +5301,7 @@ test("net_unittests") {
     "third_party/nist-pkits/",
   ]
 
-  if (is_linux || is_mac || is_win || is_fuchsia) {
-    deps += [
-      "//third_party/pyftpdlib/",
-      "//third_party/pywebsocket/",
-      "//third_party/tlslite/",
-    ]
-    data_deps += [
-      "//third_party/pyftpdlib/",
-      "//third_party/pywebsocket/",
-      "//third_party/tlslite/",
-    ]
-    data += [
-      "tools/testserver/",
-      "//third_party/pyftpdlib/",
-      "//third_party/pywebsocket/src/mod_pywebsocket/",
-      "//third_party/tlslite/",
-    ]
-  }
-
-  if (is_desktop_linux) {
+   if (is_desktop_linux) {
     deps += [ ":epoll_quic_tools" ]
   }
   if (is_linux) {
@@ -5364,9 +5345,9 @@ test("net_unittests") {
     sources -= [ "proxy_resolution/proxy_config_service_linux_unittest.cc" ]
   }
 
-  if (!is_proto_quic && v8_use_external_startup_data) {
-    deps += [ "//gin" ]
-  }
+#  if (!is_proto_quic && v8_use_external_startup_data) {
+#    deps += [ "//gin" ]
+#  }
 
   if (is_win) {
     sources -= [
