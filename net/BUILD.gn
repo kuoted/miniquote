@@ -13,7 +13,7 @@ import("//testing/libfuzzer/fuzzer_test.gni")
 import("//testing/test.gni")
 import("//third_party/icu/config.gni")
 import("//third_party/protobuf/proto_library.gni")
-#import("//tools/grit/grit_rule.gni")
+import("//tools/grit/grit_rule.gni")
 import("//url/features.gni")
 
 if (!is_proto_quic) {
@@ -2233,13 +2233,13 @@ source_set("net_public_deps") {
   }
 }
 
-#grit("net_resources") {
-#  source = "base/net_resources.grd"
-#  outputs = [
-#    "grit/net_resources.h",
-#    "net_resources.pak",
-#  ]
-#}
+grit("net_resources") {
+  source = "base/net_resources.grd"
+  outputs = [
+    "grit/net_resources.h",
+    "net_resources.pak",
+  ]
+}
 
 proto_library("net_nqe_proto") {
   visibility = [ ":net_public_deps" ]
