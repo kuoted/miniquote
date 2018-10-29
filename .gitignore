@@ -59,6 +59,7 @@ vs-chromium-project.txt
 # Visual Studio Code
 /.vscode/
 /_out
+/out/*
 /base/base_unittests_run.xml
 # See build/.gitignore for entries covering src/build.
 /buildtools
