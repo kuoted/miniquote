@@ -31,8 +31,12 @@ vars = {
   'chromium_git': 'https://chromium.googlesource.com',
 }
 deps = {
+  'src/third_party/depot_tools':
+    'https://github.com/kuoted/depot_tools.git',
   'src/buildtools':
-     'https://github.com/kuoted/chromium_buildtools.git',
+    'https://github.com/kuoted/chromium_buildtools.git' + '@' + '13a00f110ef910a25763346d6538b60f12845656',
+  'src/third_party/icu':
+    'https://github.com/kuoted/chromium-icu.git' + '@' + 'ccad4472126e35ccd1d19bea38b6675802d40472',
 
 }
 
