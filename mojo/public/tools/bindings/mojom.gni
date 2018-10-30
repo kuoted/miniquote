@@ -1043,7 +1043,7 @@ template("mojom") {
       }
       if (defined(bindings_configuration.for_blink) &&
           bindings_configuration.for_blink) {
-#        public_deps += [ "//mojo/public/cpp/bindings:wtf_support" ]
+        public_deps += [ "//mojo/public/cpp/bindings:wtf_support" ]
       }
 
       if (enable_ipc_fuzzer) {
