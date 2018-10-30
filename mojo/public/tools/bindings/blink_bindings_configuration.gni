@@ -4,7 +4,7 @@
 
 variant = "blink"
 
-for_blink = true
+for_blink = false
 
 _typemap_imports = [
 #  "//device/gamepad/public/cpp/typemaps.gni",

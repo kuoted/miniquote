@@ -35,6 +35,7 @@ if (is_android) {
 posix_avoid_mmap = is_android && current_cpu != "x86"
 
 use_v8_in_net = !is_ios && !is_proto_quic
+use_v8_in_net = false
 enable_built_in_dns = !is_ios && !is_proto_quic
 
 # Unix sockets are not supported on iOS or NaCl.
@@ -2273,22 +2274,22 @@ proto_library("net_quic_proto") {
 }
 
 if (!is_proto_quic) {
-  component("extras") {
-    sources = [
-      "extras/sqlite/cookie_crypto_delegate.h",
-      "extras/sqlite/sqlite_channel_id_store.cc",
-      "extras/sqlite/sqlite_channel_id_store.h",
-      "extras/sqlite/sqlite_persistent_cookie_store.cc",
-      "extras/sqlite/sqlite_persistent_cookie_store.h",
-    ]
-    defines = [ "IS_NET_EXTRAS_IMPL" ]
-    configs += [ "//build/config/compiler:wexit_time_destructors" ]
-    deps = [
-      ":net",
-      "//base",
-#      "//sql:sql",
-    ]
-  }
+#  component("extras") {
+#    sources = [
+##      "extras/sqlite/cookie_crypto_delegate.h",
+##      "extras/sqlite/sqlite_channel_id_store.cc",
+##      "extras/sqlite/sqlite_channel_id_store.h",
+##      "extras/sqlite/sqlite_persistent_cookie_store.cc",
+##      "extras/sqlite/sqlite_persistent_cookie_store.h",
+#    ]
+#    defines = [ "IS_NET_EXTRAS_IMPL" ]
+#    configs += [ "//build/config/compiler:wexit_time_destructors" ]
+#    deps = [
+#      ":net",
+#      "//base",
+##      "//sql:sql",
+#    ]
+#  }
 }
 
 static_library("preload_decoder") {
@@ -3194,7 +3195,7 @@ source_set("quic_test_tools") {
     "//testing/gtest",
     "//third_party/boringssl",
     "//third_party/protobuf:protobuf_lite",
-#    "//third_party/quic_trace:quic_trace_proto",
+    "//third_party/quic_trace:quic_trace_proto",
   ]
 
   if (is_linux) {
@@ -4762,8 +4763,8 @@ test("net_unittests") {
     "disk_cache/simple/simple_test_util.h",
     "disk_cache/simple/simple_util_unittest.cc",
     "disk_cache/simple/simple_version_upgrade_unittest.cc",
-    "extras/sqlite/sqlite_channel_id_store_unittest.cc",
-    "extras/sqlite/sqlite_persistent_cookie_store_unittest.cc",
+    #"extras/sqlite/sqlite_channel_id_store_unittest.cc",
+    #"extras/sqlite/sqlite_persistent_cookie_store_unittest.cc",
     "filter/brotli_source_stream_unittest.cc",
     "filter/filter_source_stream_unittest.cc",
     "filter/gzip_source_stream_unittest.cc",
@@ -5285,7 +5286,7 @@ test("net_unittests") {
 
   if (!is_proto_quic) {
     deps += [
-      ":extras",
+#      ":extras",
       "//base:i18n",
 #      "//sql",
     ]
@@ -5631,13 +5632,13 @@ if (!is_ios && !is_proto_quic) {
       "base/mime_sniffer_perftest.cc",
       "cookies/cookie_monster_perftest.cc",
       "disk_cache/disk_cache_perftest.cc",
-      "extras/sqlite/sqlite_persistent_cookie_store_perftest.cc",
+      #"extras/sqlite/sqlite_persistent_cookie_store_perftest.cc",
       "socket/udp_socket_perftest.cc",
       "url_request/url_request_quic_perftest.cc",
     ]
 
     deps = [
-      ":extras",
+      #":extras",
       ":net",
       ":quic_test_tools",
       ":simple_quic_tools",
