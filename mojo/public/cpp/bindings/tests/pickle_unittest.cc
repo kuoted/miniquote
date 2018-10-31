@@ -114,37 +114,37 @@ class ChromiumPicklePasserImpl : public PicklePasser {
 };
 
 // This implements the generated Blink variant of PicklePasser.
-class BlinkPicklePasserImpl : public blink::PicklePasser {
- public:
-  BlinkPicklePasserImpl() {}
+//class BlinkPicklePasserImpl : public blink::PicklePasser {
+// public:
+//  BlinkPicklePasserImpl() {}
+//
+//  // mojo::test::blink::PicklePasser:
+//  void PassPickledStruct(PickledStructBlink pickle,
+//                         PassPickledStructCallback callback) override {
+//    std::move(callback).Run(std::move(pickle));
+//  }
+//
+//  void PassPickledEnum(PickledEnumBlink pickle,
+//                       PassPickledEnumCallback callback) override {
+//    std::move(callback).Run(pickle);
+//  }
+//
+//  void PassPickleContainer(blink::PickleContainerPtr container,
+//                           PassPickleContainerCallback callback) override {
+//    std::move(callback).Run(std::move(container));
+//  }
 
-  // mojo::test::blink::PicklePasser:
-  void PassPickledStruct(PickledStructBlink pickle,
-                         PassPickledStructCallback callback) override {
-    std::move(callback).Run(std::move(pickle));
-  }
-
-  void PassPickledEnum(PickledEnumBlink pickle,
-                       PassPickledEnumCallback callback) override {
-    std::move(callback).Run(pickle);
-  }
-
-  void PassPickleContainer(blink::PickleContainerPtr container,
-                           PassPickleContainerCallback callback) override {
-    std::move(callback).Run(std::move(container));
-  }
-
-  void PassPickles(WTF::Vector<PickledStructBlink> pickles,
-                   PassPicklesCallback callback) override {
-    std::move(callback).Run(std::move(pickles));
-  }
-
-  void PassPickleArrays(
-      WTF::Vector<WTF::Vector<PickledStructBlink>> pickle_arrays,
-      PassPickleArraysCallback callback) override {
-    std::move(callback).Run(std::move(pickle_arrays));
-  }
-};
+//  void PassPickles(WTF::Vector<PickledStructBlink> pickles,
+//                   PassPicklesCallback callback) override {
+//    std::move(callback).Run(std::move(pickles));
+//  }
+//
+//  void PassPickleArrays(
+//      WTF::Vector<WTF::Vector<PickledStructBlink>> pickle_arrays,
+//      PassPickleArraysCallback callback) override {
+//    std::move(callback).Run(std::move(pickle_arrays));
+//  }
+//};
 
 // A test which runs both Chromium and Blink implementations of the
 // PicklePasser service.
@@ -161,14 +161,14 @@ class PickleTest : public testing::Test {
     return proxy;
   }
 
-  template <typename ProxyType = blink::PicklePasser>
-  InterfacePtr<ProxyType> ConnectToBlinkService() {
-    InterfacePtr<ProxyType> proxy;
-    blink_bindings_.AddBinding(&blink_service_,
-                               ConvertInterfaceRequest<blink::PicklePasser>(
-                                   mojo::MakeRequest(&proxy)));
-    return proxy;
-  }
+//  template <typename ProxyType = blink::PicklePasser>
+//  InterfacePtr<ProxyType> ConnectToBlinkService() {
+//    InterfacePtr<ProxyType> proxy;
+//    blink_bindings_.AddBinding(&blink_service_,
+//                               ConvertInterfaceRequest<blink::PicklePasser>(
+//                                   mojo::MakeRequest(&proxy)));
+//    return proxy;
+//  }
 
  protected:
   static void ForceMessageSerialization(bool forced) {
@@ -193,12 +193,13 @@ class PickleTest : public testing::Test {
   base::MessageLoop loop_;
   ChromiumPicklePasserImpl chromium_service_;
   BindingSet<PicklePasser> chromium_bindings_;
-  BlinkPicklePasserImpl blink_service_;
+//  BlinkPicklePasserImpl blink_service_;
   BindingSet<blink::PicklePasser> blink_bindings_;
 };
 
 }  // namespace
 
+#if 0
 TEST_F(PickleTest, ChromiumProxyToChromiumService) {
   auto chromium_proxy = ConnectToChromiumService();
   {
@@ -224,7 +225,6 @@ TEST_F(PickleTest, ChromiumProxyToChromiumService) {
     loop.Run();
   }
 }
-
 TEST_F(PickleTest, ChromiumProxyToBlinkService) {
   auto chromium_proxy = ConnectToBlinkService<PicklePasser>();
   {
@@ -416,6 +416,6 @@ TEST_F(PickleTest, PickleContainer) {
     run_loop.Run();
   }
 }
-
+#endif
 }  // namespace test
 }  // namespace mojo

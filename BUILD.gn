@@ -11,6 +11,7 @@
 import("//build/config/compiler/compiler.gni")
 import("//build/config/features.gni")
 import("//build/config/sanitizers/sanitizers.gni")
+import("//tools/ipc_fuzzer/ipc_fuzzer.gni")
 
 if (is_android) {
   import("//build/config/android/config.gni")
@@ -47,6 +48,7 @@ group("gn_all") {
     "//net:net_unittests",
 
     #    "//tools/binary_size:binary_size_trybot_py",
+    "//tools/ipc_fuzzer:ipc_fuzzer_all",
     "//url:url_unittests",
   ]
 
@@ -62,6 +64,8 @@ group("gn_all") {
   if (!is_ios) {
     deps += [
       "//ipc:ipc_tests",
+      "//mojo",
+      "//mojo:mojo_unittests",
       "//net:net_perftests",
       "//url/ipc:url_ipc_unittests",
     ]
@@ -69,6 +73,22 @@ group("gn_all") {
 
   deps += root_extra_deps
 
+  if (is_android) {
+    deps += [
+      "//base:base_junit_tests",
+      "//base/android/jni_generator:jni_generator_tests",
+      "//base/android/linker:chromium_android_linker",
+      "//build/android/gyp/test:hello_world",
+      "//build/android/gyp/test:hello_world",
+      "//build/android/stacktrace:java_deobfuscate",
+      "//net/android:net_junit_tests",
+      "//testing/android/junit:junit_unit_tests",
+    ]
+    deps -= [
+      "//net:net_perftests",
+      "//url:url_unittests",
+    ]
+  }
   if (is_linux) {
     # The following are definitely linux-only.
     deps += [
@@ -102,7 +122,6 @@ group("gn_all") {
         "//net:tld_cleanup",
       ]
     }
-
   }
 
   if (is_win) {
