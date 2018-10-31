@@ -29,7 +29,7 @@ component("sandbox") {
   deps = [
     ":sanitizer_buildflags",
     "//base",
-#    "//sandbox:common",
+    "//sandbox:common",
   ]
   if (is_linux) {
     sources += [
@@ -70,10 +70,10 @@ component("sandbox") {
     ]
     deps += [
       ":chromecast_sandbox_whitelist_buildflags",
-#      "//sandbox:sandbox_buildflags",
-#      "//sandbox/linux:sandbox_services",
-#      "//sandbox/linux:seccomp_bpf",
-#      "//sandbox/linux:suid_sandbox_client",
+      "//sandbox:sandbox_buildflags",
+      "//sandbox/linux:sandbox_services",
+      "//sandbox/linux:seccomp_bpf",
+      "//sandbox/linux:suid_sandbox_client",
     ]
   }
   if (is_mac) {
@@ -81,7 +81,7 @@ component("sandbox") {
       "mac/sandbox_mac.h",
       "mac/sandbox_mac.mm",
     ]
-#    deps += [ "//sandbox/mac:seatbelt" ]
+    deps += [ "//sandbox/mac:seatbelt" ]
     public_deps += [ "mac:packaged_sb_files" ]
     libs = [
       "AppKit.framework",
@@ -96,7 +96,7 @@ component("sandbox") {
       "win/sandbox_win.cc",
       "win/sandbox_win.h",
     ]
-#    deps += [ "//sandbox/win:sandbox" ]
+    deps += [ "//sandbox/win:sandbox" ]
   }
 }
 

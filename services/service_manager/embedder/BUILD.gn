@@ -56,7 +56,7 @@ component("embedder") {
     # deps of ServiceManager::Main and related functionality.
     deps += [
       "//base/allocator:buildflags",
-#      "//components/tracing:startup_tracing",
+      "//components/tracing:startup_tracing",
     ]
 
     if (!is_nacl) {

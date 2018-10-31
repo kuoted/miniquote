@@ -40,15 +40,15 @@
 #include "services/service_manager/runner/common/client_util.h"
 #include "services/service_manager/runner/common/switches.h"
 #include "services/service_manager/runner/init.h"
-#include "ui/base/resource/resource_bundle.h"
-#include "ui/base/ui_base_paths.h"
-#include "ui/base/ui_base_switches.h"
+//#include "ui/base/resource/resource_bundle.h"
+//#include "ui/base/ui_base_paths.h"
+//#include "ui/base/ui_base_switches.h"
 
 #if defined(OS_WIN)
 #include <windows.h>
 
 #include "base/win/process_startup_helper.h"
-#include "ui/base/win/atl_module.h"
+//#include "ui/base/win/atl_module.h"
 #endif
 
 #if defined(OS_POSIX) && !defined(OS_ANDROID)
@@ -249,13 +249,14 @@ int RunServiceManager(MainDelegate* delegate) {
 }
 
 void InitializeResources() {
-  const std::string locale =
-      base::CommandLine::ForCurrentProcess()->GetSwitchValueASCII(
-          ::switches::kLang);
+//  const std::string locale =
+//      base::CommandLine::ForCurrentProcess()->GetSwitchValueASCII(
+//          switches::kLang);
   // This loads the embedder's common resources (e.g. chrome_100_percent.pak for
   // Chrome.)
-  ui::ResourceBundle::InitSharedInstanceWithLocale(
-      locale, nullptr, ui::ResourceBundle::LOAD_COMMON_RESOURCES);
+
+//  ui::ResourceBundle::InitSharedInstanceWithLocale(
+//      locale, nullptr, ui::ResourceBundle::LOAD_COMMON_RESOURCES);
 }
 
 int RunService(MainDelegate* delegate) {
@@ -347,7 +348,7 @@ int Main(const MainParams& params) {
 
 #if defined(OS_WIN)
     base::win::RegisterInvalidParamHandler();
-    ui::win::CreateATLModuleIfNeeded();
+//    ui::win::CreateATLModuleIfNeeded();
 #endif  // defined(OS_WIN)
 
 #if !defined(OS_ANDROID)
@@ -410,7 +411,7 @@ int Main(const MainParams& params) {
     delegate->OverrideMojoConfiguration(&mojo_config);
     mojo::core::Init(mojo_config);
 
-    ui::RegisterPathProvider();
+//:    ui::RegisterPathProvider();
 
     tracker = base::debug::GlobalActivityTracker::Get();
     exit_code = delegate->Initialize(init_params);

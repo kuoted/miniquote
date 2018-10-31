@@ -2,19 +2,19 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
-#source_set("sandbox") {
-#  testonly = true
-#  sources = [
-#    "sandbox_type_unittest.cc",
-#  ]
-#  deps = [
-#    "//base",
-#    "//services/service_manager/sandbox",
-#    "//testing/gtest",
-#  ]
-#
-#  if (is_win) {
-#    sources += [ "sandbox_win_unittest.cc" ]
-#    deps += [ "//sandbox/win:sandbox" ]
-#  }
-#}
+source_set("sandbox") {
+  testonly = true
+  sources = [
+    "sandbox_type_unittest.cc",
+  ]
+  deps = [
+    "//base",
+    "//services/service_manager/sandbox",
+    "//testing/gtest",
+  ]
+
+  if (is_win) {
+    sources += [ "sandbox_win_unittest.cc" ]
+    deps += [ "//sandbox/win:sandbox" ]
+  }
+}
