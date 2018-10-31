@@ -318,13 +318,12 @@ component("test_export_component") {
 }
 
 if (!is_ios) {
-  component("test_export_blink_component") {
-    testonly = true
-    deps = [
-#      ":test_export_blink",
-       ":test_export_component", 
-    ]
-  }
+#  component("test_export_blink_component") {
+#    testonly = true
+#    deps = [
+##      ":test_export_blink",
+#    ]
+#  }
 }
 
 mojom("test_export") {
